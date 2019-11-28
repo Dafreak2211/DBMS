@@ -1,0 +1,45 @@
+
+
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Document
+    style
+      include style.css
+  body
+    .pdf-template
+      .pdf-template__heading 
+        h1 receipt  
+      .pdf-template__info
+        p
+          | Cashier: 
+          span #{data.username}
+        p
+          | Receipt: 
+          span #{data.receiptId}
+        p
+          | Receipt Date: 
+          span #{data.timestamp}
+      .pdf-template__items
+        .pdf-template__row.pdf-template__items-tab
+          h3 QT
+          h3 Name
+          h3 Unit Price
+          h3 Amount
+      each val in data.selected
+        .pdf-template__row.pdf-template__item
+          p #{val.quantity}
+          p #{val.product_name}
+          p #{val.price_per_unit}
+          p #{val.quantity * val.price_per_unit}
+      .pdf-template__row.pdf-template__subtotal
+        p #{data.total}$ 
+        h3 Subtotal
+
+   
+      .pdf-template__footer#pageFooter
+        i Thank you for shopping at our store
+        
+       

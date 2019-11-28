@@ -1,0 +1,24 @@
+.loader-wrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1001;
+  background: #fff;
+  opacity: 1;
+  visibility: visible;
+  transition: 350ms ease-in-out;
+}
+.loader-wrapper.disappear {
+  opacity: 0;
+
+  visibility: hidden;
+}
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 500;
+  transform: translate(-50%, -50%);
+  height: 20rem;
+  width: 20rem;
+}

@@ -1,0 +1,35 @@
+.navigation {
+  height: 80px;
+  width: 100vw;
+  background: #2e1d1d;
+}
+
+.navigation a {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.navigation .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.navigation a {
+  display: flex;
+  align-items: center;
+}
+.navigation .link__home {
+  flex: 1;
+}
+.navigation .link__store {
+  margin-right: 4rem;
+}
+.navigation .link__admin {
+  margin-right: 10rem;
+}
+.navigation a img {
+  height: 3.4rem;
+  width: 3.4rem;
+  margin-right: 1.5rem;
+}

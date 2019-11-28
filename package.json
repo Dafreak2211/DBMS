@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon --inspect app.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \" npm run server \"  \" npm run client \" ",
+    "prefix": "postcss --use autoprefixer -b \"last 10 versions \" ./route/template/style.css -o ./route/template/style.prefix.css "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^3.0.0",
+    "chrome-headless-render-pdf": "^1.8.2",
+    "concurrently": "^5.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "html-pdf": "^2.2.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.7.2"
+  }
+}

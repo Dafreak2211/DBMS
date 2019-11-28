@@ -1,0 +1,10 @@
+.store-content .container {
+  padding: 5rem 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.store-content {
+  background-color: #fcfcfc;
+  min-height: 80vh;
+}

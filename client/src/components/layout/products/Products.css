@@ -1,0 +1,139 @@
+.products {
+  grid-column: span 8;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 4rem;
+  grid-template-rows: repeat(3, min-content);
+}
+
+.products .product {
+  position: relative;
+  padding: 2rem;
+  grid-column: span 3;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 4rem;
+  background: #fff;
+  transition: 250ms ease-in-out;
+}
+
+.product.selected {
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  background-color: #50d592;
+}
+
+.products .product:hover {
+  transform: scale(1.03);
+}
+.products .product img {
+  width: 100%;
+  object-fit: cover;
+  min-height: 18rem;
+  max-height: 18rem;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  opacity: 0;
+  transition: 350ms ease-in-out;
+  padding: 2rem;
+  font-size: 1.6rem;
+}
+
+.products .product:hover > .overlay {
+  opacity: 1;
+}
+
+.product-info__name h3 {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.product-info__price p {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-top: 5rem;
+}
+
+.product.disable::after {
+  position: absolute;
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  background: #dd1f43;
+  top: -4%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.3rem #d11313;
+  right: -4%;
+}
+
+.each-category {
+  height: 6rem;
+  color: white;
+  font-size: 2rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  align-items: center;
+  cursor: pointer;
+  transform: translateX(-60%);
+  transition: 350ms all;
+  padding: 0 3rem;
+  z-index: 99;
+}
+
+.each-category p {
+  opacity: 0;
+  visibility: hidden;
+  transition: 350ms;
+  margin-right: 1.5rem;
+}
+.each-category:hover {
+  transform: translateX(0%);
+}
+.each-category:hover p {
+  opacity: 1;
+  visibility: visible;
+}
+.each-category:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+.products__category {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  z-index: 15;
+}
+.each-category img {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+@media (min-width: 75em) and (max-width: 93.75em) {
+  .overlay {
+    font-size: 1.4rem;
+  }
+  .product-info__price p {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+  .products .product {
+    grid-column: span 4;
+  }
+}
+@media (min-width: 93.75em) and (max-width: 112.5em) {
+  .products .product img {
+    min-height: 16rem;
+    max-height: 16rem;
+  }
+  .product-info__price p {
+    font-size: 3rem;
+  }
+}

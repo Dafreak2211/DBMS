@@ -1,0 +1,33 @@
+.unauthorized-page {
+  text-align: center;
+  max-height: 100vh;
+  min-height: 100vh;
+}
+.illustration {
+  margin-top: 10rem;
+}
+.illustration img {
+  height: 30rem;
+  width: 30rem;
+  animation: moving 1.5s linear infinite;
+}
+.goback {
+  margin-top: 12rem;
+  font-size: 1.7rem;
+}
+
+.goback p {
+  margin-bottom: 3rem;
+}
+
+@keyframes moving {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

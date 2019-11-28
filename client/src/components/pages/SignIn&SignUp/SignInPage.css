@@ -1,0 +1,122 @@
+.account-page {
+  height: 100vh;
+  width: 100vw;
+  /* background: linear-gradient(to right bottom, #f21d9d, #be195e); */
+  background: linear-gradient(to right bottom, #499bea, #798eea);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account-form {
+  height: auto;
+  width: 40vw;
+  padding: 6rem 8rem;
+  background-color: #fff;
+  box-shadow: 0px 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  position: relative;
+}
+
+.account-form__header {
+  font-size: 3rem;
+  margin-bottom: 6rem;
+  font-weight: 600;
+  text-align: center;
+  color: #3b3a3a;
+}
+
+.list-group {
+  height: 50px;
+
+  position: relative;
+}
+.list-group:not(:last-child) {
+  margin-bottom: 5rem;
+}
+
+.list-group input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  background-color: #dedddd;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 8px;
+  padding-left: 1.5rem;
+}
+.list-group span {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translate(0, -50%);
+  z-index: 1000;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+.list-group span img {
+  height: 100%;
+  width: 100%;
+}
+.list-group label {
+  position: absolute;
+  font-size: 1.6rem;
+  top: 50%;
+  left: 3%;
+  color: #5e5858;
+  transform: translate(-3%, -50%);
+  transition: 350ms ease-in-out;
+}
+
+.list-group input:focus + label {
+  top: -38%;
+  /* color: #ed1c97; */
+  color: #2bd89a;
+  left: 2%;
+}
+.list-group input:valid + label {
+  top: -38%;
+  /* color: #ed1c97; */
+  color: #2bd89a;
+
+  left: 2%;
+}
+
+.form__error {
+  position: absolute;
+  top: 25%;
+  padding: 1rem 3rem;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  background: #f57575c7;
+  color: #d72c2c;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  white-space: nowrap;
+}
+.form__error.signup {
+  top: 17%;
+}
+.form__alternative {
+  margin-top: 3rem;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #898888;
+}
+
+.form__alternative a {
+  color: #1ea2ff;
+  text-decoration: none;
+}
+
+@media (min-width: 75em) and (max-width: 93.75em) {
+  .account-form {
+    width: 60vw;
+  }
+}
+@media (min-width: 93.75em) and (max-width: 112.5em) {
+  .account-form {
+    width: 50vw;
+  }
+}
