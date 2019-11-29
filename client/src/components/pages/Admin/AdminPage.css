@@ -68,6 +68,12 @@
   font-size: 1.8rem;
   margin-bottom: 5rem;
 }
+h3.page__products--empty {
+  grid-column: span 12;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 400;
+}
 .admin-page__product > * {
   display: flex;
   justify-content: center;

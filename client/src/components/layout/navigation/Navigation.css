@@ -28,8 +28,53 @@
 .navigation .link__admin {
   margin-right: 10rem;
 }
-.navigation a img {
+.navigation img {
   height: 3.4rem;
   width: 3.4rem;
   margin-right: 1.5rem;
+}
+ul.loginContainer {
+  position: relative;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  height: 3.5rem;
+}
+ul.loginContainer ul {
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  background: #243250;
+  padding: 1.5rem 0rem;
+  border-radius: 8px;
+  transition: 350ms all;
+  list-style-type: none;
+  transform: translate(-50%, 0%);
+  transition: 350ms all;
+  opacity: 0;
+  visibility: hidden;
+}
+
+ul.loginContainer ul.smooth {
+  opacity: 1;
+  visibility: visible;
+}
+
+ul.loginContainer ul li:nth-child(1) {
+  border-bottom: 1px solid #ffffff36;
+}
+ul.loginContainer ul > * {
+  transition: 350ms all;
+  padding: 0.75rem 5rem;
+}
+ul.loginContainer ul > li:nth-child(2):hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+span.online-status {
+  height: 1rem;
+  width: 1rem;
+  background: #33df80;
+  position: absolute;
+  border-radius: 50%;
+  margin-left: 0.5rem;
 }

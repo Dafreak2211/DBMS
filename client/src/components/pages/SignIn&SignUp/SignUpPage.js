@@ -5,6 +5,9 @@ import axios from "axios";
 import { AccountContext } from "../../../App";
 import { saveLog } from "../../../ultis/Log";
 import shortid from "shortid";
+import "particles.js/particles";
+
+const particlesJS = window.particlesJS;
 
 export const SignUpPage = props => {
   let [username, setUsername] = useState("");
@@ -14,87 +17,91 @@ export const SignUpPage = props => {
 
   let [formError, setFormError] = useState(null);
 
-  return (
-    <div className="account-page">
-      <form className="account-form">
-        <h3 className="account-form__header">Sign In</h3>
-        {formError && <div className="form__error signup">{formError}</div>}
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="text"
-            onChange={e => {
-              setUsername(e.target.value);
-              setFormError(null);
-            }}
-            name="username"
-            required
-            id="username"
-          />
-          <label htmlFor="username">Username</label>
-        </div>
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="text"
-            onChange={e => {
-              setFullname(e.target.value);
-              setFormError(null);
-            }}
-            name="fullname"
-            required
-            id="fullname"
-          />
-          <label htmlFor="fullname">Fullname</label>
-        </div>
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="password"
-            onChange={e => {
-              setPassword(e.target.value);
-              setFormError(null);
-            }}
-            name="password"
-            required
-            id="password"
-          />
-          <label htmlFor="password">Password</label>
-        </div>
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="password"
-            onChange={e => {
-              setRePassword(e.target.value);
-              setFormError(null);
-            }}
-            name="repassword"
-            required
-            id="repassword"
-          />
-          <label htmlFor="repassword">Re-Password</label>
-        </div>
+  useEffect(() => {
+    particlesJS.load(
+      "particles-js",
+      "/assets/particlesjs-config.json",
+      function() {}
+    );
+  }, []);
 
-        <div className="button-container">
-          <AccountContext.Consumer>
-            {context => (
-              <Link
-                to="/store"
-                onClick={e => onClick(e, context)}
-                className="btn signInBtn"
-              >
+  return (
+    <div className="account-page" id="particles-js">
+      <AccountContext.Consumer>
+        {context => (
+          <form className="account-form" onSubmit={e => onSubmit(e, context)}>
+            <h3 className="account-form__header">Sign In</h3>
+            {formError && <div className="form__error signup">{formError}</div>}
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="text"
+                onChange={e => {
+                  setUsername(e.target.value);
+                  setFormError(null);
+                }}
+                name="username"
+                required
+                id="username"
+              />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="text"
+                onChange={e => {
+                  setFullname(e.target.value);
+                  setFormError(null);
+                }}
+                name="fullname"
+                required
+                id="fullname"
+              />
+              <label htmlFor="fullname">Fullname</label>
+            </div>
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="password"
+                onChange={e => {
+                  setPassword(e.target.value);
+                  setFormError(null);
+                }}
+                name="password"
+                required
+                id="password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="password"
+                onChange={e => {
+                  setRePassword(e.target.value);
+                  setFormError(null);
+                }}
+                name="repassword"
+                required
+                id="repassword"
+              />
+              <label htmlFor="repassword">Re-Password</label>
+            </div>
+
+            <div className="button-container">
+              <button type="submit" className="btn signInBtn">
                 Sign Up
-              </Link>
-            )}
-          </AccountContext.Consumer>
-        </div>
-        <div className="form__alternative">
-          <p>
-            Already have an account ? <Link to="/">Sign In</Link>
-          </p>
-        </div>
-      </form>
+              </button>
+            </div>
+            <div className="form__alternative">
+              <p>
+                Already have an account ? <Link to="/">Sign In</Link>
+              </p>
+            </div>
+          </form>
+        )}
+      </AccountContext.Consumer>
     </div>
   );
 
@@ -102,22 +109,10 @@ export const SignUpPage = props => {
     setTimeout(() => setFormError(""), 1000);
   }
 
-  async function onClick(e, context) {
+  async function onSubmit(e, context) {
     e.preventDefault();
 
-    if (!username) {
-      setFormError("Username is required");
-      resetError();
-    } else if (!fullname) {
-      setFormError("Fullname is required");
-      resetError();
-    } else if (!password) {
-      setFormError("Password is required");
-      resetError();
-    } else if (!repassword) {
-      setFormError("Repassword is required");
-      resetError();
-    } else if (password !== repassword) {
+    if (password !== repassword) {
       setFormError("Repassword doen't match");
       resetError();
     } else {
@@ -142,21 +137,5 @@ export const SignUpPage = props => {
         props.history.push("/");
       }
     }
-
-    // else {
-    //
-
-    //   if (respond.data.status === "failed") {
-    //     setFormError(respond.data.error);
-    //   } else if (respond.data.status === "success") {
-    //     sessionStorage.setItem("authentication", true);
-    //     sessionStorage.setItem("username", username);
-    //     context.updateState(username);
-    //     // log file
-    //     saveLog("account", "sign in", username);
-
-    //     props.history.push("/store");
-    //   }
-    // }
   }
 };

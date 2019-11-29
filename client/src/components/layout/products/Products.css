@@ -95,6 +95,9 @@
   transition: 350ms;
   margin-right: 1.5rem;
 }
+.each-category:hover p:nth-child(1) {
+  margin-right: 3.5rem;
+}
 .each-category:hover {
   transform: translateX(0%);
 }

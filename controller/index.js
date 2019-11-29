@@ -371,7 +371,24 @@ module.exports = {
   },
   search: (req, res) => {
     const { key } = req.body;
-    let sql = `select * from product where product_name like '%${key}%'`;
+
+    let parsed = parseInt(key);
+
+    function filterCases() {
+      let statement;
+      if (!isNaN(parsed)) {
+        statement = `select * from product where product_name like '%${key}%' or product_id like '%${key}%' or groupProduct_id like '%${key}%' or remaining_quantity = ${parseInt(
+          key
+        )};`;
+      } else {
+        statement = `select * from product where product_name like '%${key}%' or product_id like '%${key}%' or groupProduct_id like '%${key}%';`;
+      }
+
+      return statement;
+    }
+
+    let sql = filterCases();
+    console.log(chalk.blue(sql));
 
     connection.query(sql, (error, results, fields) => {
       if (error) {

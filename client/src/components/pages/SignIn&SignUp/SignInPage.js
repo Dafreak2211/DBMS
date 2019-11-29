@@ -5,6 +5,9 @@ import axios from "axios";
 import { saveLog } from "../../../ultis/Log";
 import { AccountContext } from "../../../App";
 import { Loader } from "../../layout/loader/Loader";
+import "particles.js/particles";
+
+const particlesJS = window.particlesJS;
 
 export const SignInPage = props => {
   let [username, setUsername] = useState("");
@@ -17,6 +20,11 @@ export const SignInPage = props => {
     setTimeout(() => {
       setLoader(false);
     }, 1500);
+    particlesJS.load(
+      "particles-js",
+      "/assets/particlesjs-config.json",
+      function() {}
+    );
   }, []);
 
   function revealPassword(e) {
@@ -26,103 +34,92 @@ export const SignInPage = props => {
       ? inputField.setAttribute("type", "text")
       : inputField.setAttribute("type", "password");
   }
+  async function onSubmit(e, context) {
+    e.preventDefault();
 
-  return (
-    <div className="account-page">
-      <Loader class={loader ? "loader-wrapper" : "loader-wrapper disappear"} />}
-      <form className="account-form">
-        <h3 className="account-form__header">Sign In</h3>
-        {formError && <div className="form__error">{formError}</div>}
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="text"
-            onChange={e => {
-              setUsername(e.target.value);
-              setFormError(null);
-            }}
-            name="username"
-            required
-            id="username"
-          />
-          <label htmlFor="username">Username</label>
-        </div>
-        <div className="list-group">
-          <input
-            autoComplete="off"
-            type="password"
-            onChange={e => {
-              setPassword(e.target.value);
-              setFormError(null);
-            }}
-            name="password"
-            required
-            id="password"
-          />
-          <label htmlFor="password">Password</label>
-          <span onClick={revealPassword}>
-            <img src="/eye.png" alt="" />
-          </span>
-        </div>
+    let respond = await axios({
+      url: "http://localhost:5000/api/account",
+      method: "POST",
+      data: {
+        username,
+        password
+      }
+    });
 
-        <div className="button-container">
-          <AccountContext.Consumer>
-            {context => (
-              <Link
-                to="/store"
-                onClick={e => onClick(e, context)}
-                className="btn signInBtn"
-              >
-                Sign in
-              </Link>
-            )}
-          </AccountContext.Consumer>
-        </div>
-        <div className="form__alternative">
-          <p>
-            Create new account ? <Link to="/signup">Sign Up</Link>
-          </p>
-        </div>
-      </form>
-    </div>
-  );
+    if (respond.data.status === "failed") {
+      setFormError(respond.data.error);
+      resetError();
+    } else if (respond.data.status === "success") {
+      sessionStorage.setItem("authentication", true);
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("privilege", respond.data.isPrivileged);
+      context.updateState(username);
+      // log file
+      saveLog("account", "sign in", username);
+
+      props.history.push("/store");
+    }
+  }
 
   function resetError() {
     setTimeout(() => setFormError(""), 1000);
   }
-  async function onClick(e, context) {
-    e.preventDefault();
 
-    if (!username) {
-      setFormError("Username is required");
-      resetError();
-    } else if (!password) {
-      setFormError("Password is required");
-      resetError();
-    } else {
-      let respond = await axios({
-        url: "http://localhost:5000/api/account",
-        method: "POST",
-        data: {
-          username,
-          password
-        }
-      });
+  return (
+    <div className="account-page" id="particles-js">
+      <Loader class={loader ? "loader-wrapper" : "loader-wrapper disappear"} />}
+      <AccountContext.Consumer>
+        {context => (
+          <form className="account-form" onSubmit={e => onSubmit(e, context)}>
+            <h3 className="account-form__header">Sign In</h3>
+            {formError && <div className="form__error">{formError}</div>}
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="text"
+                onChange={e => {
+                  setUsername(e.target.value);
+                  setFormError(null);
+                }}
+                name="username"
+                required
+                id="username"
+              />
+              <label htmlFor="username">Username</label>
+            </div>
+            <div className="list-group">
+              <input
+                autoComplete="off"
+                type="password"
+                onChange={e => {
+                  setPassword(e.target.value);
+                  setFormError(null);
+                }}
+                name="password"
+                required
+                id="password"
+              />
+              <label htmlFor="password">Password</label>
+              <span onClick={revealPassword}>
+                <img src="/eye.png" alt="" />
+              </span>
+            </div>
 
-      if (respond.data.status === "failed") {
-        setFormError(respond.data.error);
-      } else if (respond.data.status === "success") {
-        sessionStorage.setItem("authentication", true);
-        sessionStorage.setItem("username", username);
-        sessionStorage.setItem("privilege", respond.data.isPrivileged);
-        context.updateState(username);
-        // log file
-        saveLog("account", "sign in", username);
-
-        props.history.push("/store");
-      }
-    }
-  }
+            <div className="button-container">
+              <button type="submit" className="btn signInBtn">
+                Sign in
+              </button>
+            </div>
+            <div className="form__alternative">
+              <p>
+                Create new account ? <Link to="/signup">Sign Up</Link>
+              </p>
+            </div>
+          </form>
+        )}
+      </AccountContext.Consumer>
+    </div>
+  );
 };
 
 // stop other accounts access Admin Panel except the authorized account

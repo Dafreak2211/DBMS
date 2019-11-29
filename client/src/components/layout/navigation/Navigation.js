@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navigation.css";
 import { Link } from "react-router-dom";
 
 export const Navigation = ({ history }) => {
+  const [logout, setLogout] = useState(false);
+
+  function onClick(e) {
+    e.preventDefault();
+    setLogout(!logout);
+  }
   return (
     <div className="navigation">
       <div className="container">
@@ -17,10 +23,25 @@ export const Navigation = ({ history }) => {
           <img src="/002-id-card.png" alt="" />
           Admin Panel
         </Link>
-        <Link to="/logout" className="link__logout" onClick={handleLogout}>
-          <img src="/logout.png" alt="" />
-          Logout
-        </Link>
+        <ul className="loginContainer" onClick={e => onClick(e)}>
+          <img src="/user.png" alt="" />
+
+          <ul className={logout ? "smooth" : ""}>
+            <li>
+              haitran <span className="online-status"></span>
+            </li>
+            <li>
+              <Link
+                to="/logout"
+                className="link__logout hidden"
+                onClick={handleLogout}
+              >
+                <img src="/logout.png" alt="" />
+                Logout
+              </Link>
+            </li>
+          </ul>
+        </ul>
       </div>
     </div>
   );

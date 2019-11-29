@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LogDeletePopUp } from "./LogDeletePopUp";
+import { CSSTransition } from "react-transition-group";
 
 export const AdminLog = () => {
   const [log, setLog] = useState(null);
@@ -33,14 +34,17 @@ export const AdminLog = () => {
   }, [triggerRerender]);
 
   function renderItem() {
-    let state = sessionStorage.getItem("adminLogType");
+    let state = sessionStorage.getItem("adminLogType") || "order";
     let target = document.getElementById(state);
 
-    document
-      .querySelector(".admin__log--category-tab.current")
-      .classList.remove("current");
-
-    target.classList.add("current");
+    let current = document.querySelector(".admin__log--category-tab.current");
+    console.log([target, current]);
+    if (target === current) return;
+    // inital is Order tab
+    else {
+      current.classList.remove("current");
+      target.classList.add("current");
+    }
   }
   function onClick(e) {
     e.preventDefault();
@@ -82,8 +86,9 @@ export const AdminLog = () => {
           appear={appear}
           selectedID={selectedID}
           setTriggerRerender={setTriggerRerender}
-        />
+        ></LogDeletePopUp>
       )}
+
       <a
         href="#"
         className="btn clearAll__btn btn__purple"

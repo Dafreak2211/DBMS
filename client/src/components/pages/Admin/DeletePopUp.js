@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
+import { AccountContext } from "../../../App";
+import { saveLog } from "../../../ultis/Log";
 
-export const DeletePopUp = ({
-  itemForUpdate,
-  setTriggerRerender,
-  setDeletePopupAppear,
-  deletePopupAppear
-}) => {
-  async function onDelete(e) {
+export const DeletePopUp = props => {
+  const {
+    itemForUpdate,
+    setTriggerRerender,
+    setDeletePopupAppear,
+    deletePopupAppear
+  } = props;
+
+  async function onDelete(e, context) {
     e.preventDefault();
     let respond = await axios({
       method: "post",
@@ -18,11 +22,18 @@ export const DeletePopUp = ({
     });
 
     if (respond.data.status === "success") {
+      // Cannot update quantity
+
+      saveLog(
+        "product",
+        `delete ${itemForUpdate.product_name}`,
+        context.username || sessionStorage.getItem("username")
+      );
       // force re-render to update data
       setTriggerRerender(Math.random());
       setDeletePopupAppear(!deletePopupAppear);
     } else if (respond.data.status === "failed") {
-      console.log("Failed");
+      alert("Failed");
     }
   }
 
@@ -35,30 +46,38 @@ export const DeletePopUp = ({
         }
       }}
     >
-      <div className="popup ">
-        <div
-          className="exitBtn"
-          onClick={() => setDeletePopupAppear(!deletePopupAppear)}
-        >
-          &#x3A7;
-        </div>
-        <div className="popup__heading">
-          Are you sure to delete <span>{itemForUpdate.product_name} ?</span>
-        </div>
+      <AccountContext.Consumer>
+        {context => (
+          <div className="popup ">
+            <div
+              className="exitBtn"
+              onClick={() => setDeletePopupAppear(!deletePopupAppear)}
+            >
+              &#x3A7;
+            </div>
+            <div className="popup__heading">
+              Are you sure to delete <span>{itemForUpdate.product_name} ?</span>
+            </div>
 
-        <div className="popup__footer">
-          <a
-            href="#"
-            className="btn btn-small cancelBtn btn__no__bg"
-            onClick={() => setDeletePopupAppear(!deletePopupAppear)}
-          >
-            Cancel
-          </a>
-          <a href="#" className="btn btn-small modalBtn" onClick={onDelete}>
-            Delete
-          </a>
-        </div>
-      </div>
+            <div className="popup__footer">
+              <a
+                href="#"
+                className="btn btn-small cancelBtn btn__no__bg"
+                onClick={() => setDeletePopupAppear(!deletePopupAppear)}
+              >
+                Cancel
+              </a>
+              <a
+                href="#"
+                className="btn btn-small modalBtn"
+                onClick={e => onDelete(e, context)}
+              >
+                Delete
+              </a>
+            </div>
+          </div>
+        )}
+      </AccountContext.Consumer>
     </div>
   );
 };

@@ -3,13 +3,18 @@ import React from "react";
 export const AdminProducts = ({ store, onDelete, onEdit }) => {
   return (
     <div className="admin-page__products">
-      <div className="admin-page__products--properties">
-        <h4 className="price">Price</h4>
-        <h4 className="quantity">Quantity</h4>
-        <h4 className="code">Code</h4>
-        <h4 className="actions">Actions</h4>
-      </div>
-      {/* start product */}
+      {store && store.length > 0 ? (
+        <div className="admin-page__products--properties">
+          <h4 className="price">Price</h4>
+          <h4 className="quantity">Quantity</h4>
+          <h4 className="code">Code</h4>
+          <h4 className="actions">Actions</h4>
+        </div>
+      ) : (
+        <h3 className="page__products--empty">
+          Found nothing. Please try again !
+        </h3>
+      )}
       {store &&
         store.map(each => (
           <div className="admin-page__product">
@@ -34,7 +39,7 @@ export const AdminProducts = ({ store, onDelete, onEdit }) => {
             </div>
           </div>
         ))}
-      {/* end product */}
+      {/* end product  */}
     </div>
   );
 };
