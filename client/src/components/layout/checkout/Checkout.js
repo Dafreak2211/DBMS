@@ -4,9 +4,16 @@ import axios from "axios";
 import shortId from "shortid";
 import { saveLog } from "../../../ultis/Log";
 import { AccountContext } from "../../../App";
+import { Notify } from "../notify/Notify";
 
 export const CheckOut = props => {
-  const { store, setStore, triggerRerender } = props;
+  const {
+    store,
+    setStore,
+    triggerRerender,
+    setToggleNotify,
+    toggleNotify
+  } = props;
 
   let selected = store.filter(each => each.isSelected === true);
 
@@ -79,6 +86,9 @@ export const CheckOut = props => {
     }
     if (respond.data.status === "success") {
       saveLog("order", `proceed an order ${receiptId}`, `${username}`);
+
+      setToggleNotify(!toggleNotify);
+
       triggerRerender(Math.random());
     }
   }

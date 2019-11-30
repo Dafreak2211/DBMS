@@ -8,7 +8,9 @@ export const DeletePopUp = props => {
     itemForUpdate,
     setTriggerRerender,
     setDeletePopupAppear,
-    deletePopupAppear
+    deletePopupAppear,
+    setMessage,
+    setToggleNotify
   } = props;
 
   async function onDelete(e, context) {
@@ -31,6 +33,10 @@ export const DeletePopUp = props => {
       );
       // force re-render to update data
       setTriggerRerender(Math.random());
+      setMessage("Deleted");
+      setToggleNotify(true);
+
+      setTimeout(() => setToggleNotify(false), 1000);
       setDeletePopupAppear(!deletePopupAppear);
     } else if (respond.data.status === "failed") {
       alert("Failed");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LogDeletePopUp } from "./LogDeletePopUp";
 import { CSSTransition } from "react-transition-group";
+import { Notify } from "../../layout/notify/Notify";
 
 export const AdminLog = () => {
   const [log, setLog] = useState(null);
@@ -12,6 +13,9 @@ export const AdminLog = () => {
   const [triggerRerender, setTriggerRerender] = useState(null);
 
   const [deleteType, setDeleteType] = useState("all");
+
+  const [toggleNotify, setToggleNotify] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     try {
@@ -71,14 +75,21 @@ export const AdminLog = () => {
     setSelectedID(log_id);
   }
 
-  function onClearAll(e) {
-    e.preventDefault();
+  // function onClearAll(e) {
+  //   e.preventDefault();
 
-    setAppear(!appear);
-  }
+  //   setAppear(!appear);
+  // }
 
   return (
     <div className="admin__log">
+      <Notify
+        message={message}
+        status="success"
+        position="bottom-right"
+        toggleNotify={toggleNotify}
+        setToggleNotify={setToggleNotify}
+      />
       {appear && (
         <LogDeletePopUp
           type={deleteType}
@@ -86,13 +97,16 @@ export const AdminLog = () => {
           appear={appear}
           selectedID={selectedID}
           setTriggerRerender={setTriggerRerender}
+          setMessage={setMessage}
+          setToggleNotify={setToggleNotify}
         ></LogDeletePopUp>
       )}
 
       <a
         href="#"
         className="btn clearAll__btn btn__purple"
-        onClick={onClearAll}
+        // onClick={onClearAll}
+        onClick={e => changeState(e, "abc", "all")}
       >
         Clear All
       </a>

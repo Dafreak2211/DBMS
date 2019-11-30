@@ -6,7 +6,9 @@ export const LogDeletePopUp = ({
   changeState,
   appear,
   selectedID,
-  setTriggerRerender
+  setTriggerRerender,
+  setMessage,
+  setToggleNotify
 }) => {
   function onCancel(e) {
     changeState(!appear);
@@ -22,7 +24,7 @@ export const LogDeletePopUp = ({
     e.preventDefault();
 
     let url = getURL();
-    console.log(url);
+
     let respond = await axios({
       url,
       method: "POST",
@@ -32,9 +34,14 @@ export const LogDeletePopUp = ({
     });
 
     if (respond.data.status === "success") {
+      setToggleNotify(true);
+      type === "single" ? setMessage("Deleted") : setMessage("Deleted all");
+      setTimeout(() => setToggleNotify(false), 1000);
+
       changeState(!appear);
       setTriggerRerender(Math.random());
     }
+
     // if (respond.data.stauts === "failed");
   }
 

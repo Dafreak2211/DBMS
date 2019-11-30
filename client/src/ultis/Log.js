@@ -6,7 +6,7 @@ export const saveLog = (type, event, username) => {
     type,
     event,
     username,
-    timestamp: new Date().toLocaleString(),
+    timestamp: new Date().toLocaleString("es-US"),
     logId: shortid.generate()
     // set up server
     // NOTE: SET UP BACKUP USERNAME TO ENSURE THAT

@@ -1,0 +1,59 @@
+.notify {
+  position: fixed;
+  border-radius: 8px;
+  width: 40rem;
+  height: 8rem;
+  transition: 350ms ease-out;
+  bottom: 10%;
+  z-index: 1000;
+}
+.notify.bottom-right {
+  right: 3%;
+}
+.notify.bottom-left {
+  left: 3%;
+}
+
+.notify.bottom-left.appear {
+  left: -30% !important;
+}
+.notify.bottom-right.appear {
+  right: -30% !important;
+}
+
+.notify.success {
+  background: #c7eada;
+}
+.notify.error {
+  background: #eac3c5;
+}
+.notify__dash {
+  position: absolute;
+  height: 100%;
+  width: 2%;
+  border-radius: 8px;
+}
+.notify.success .notify__dash {
+  background-color: rgb(58, 238, 154);
+}
+.notify.error .notify__dash {
+  background-color: red;
+}
+
+.notify__message {
+  width: 98%;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  font-size: 1.7rem;
+  padding: 0rem 2.5rem;
+}
+
+.notify.success .notify__message {
+  color: rgb(0, 102, 68);
+}
+.notify.error .notify__message {
+  color: red;
+}

@@ -6,7 +6,10 @@ export const PopUp = ({
   itemForUpdate,
   setTriggerRerender,
   setpopupAppear,
-  popupAppear
+  popupAppear,
+  setMessage,
+  setToggleNotify,
+  toggleNotify
 }) => {
   const [oldValue, setOldValue] = useState(itemForUpdate);
 
@@ -45,6 +48,10 @@ export const PopUp = ({
         sessionStorage.getItem("username")
       );
       setTriggerRerender(Math.random()); // force re-render to update the state
+      setMessage("Update successfully");
+      setToggleNotify(true);
+
+      setTimeout(() => setToggleNotify(false), 1000);
       setpopupAppear(!popupAppear);
     }
   }

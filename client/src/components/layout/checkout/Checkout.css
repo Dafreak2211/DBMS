@@ -84,3 +84,18 @@
   height: 3rem;
   margin-left: 0.5rem;
 }
+
+.checkout__form--product-quantity input:focus {
+  border-color: #50d592;
+}
+
+.checkout__form--product-quantity input {
+  width: 25%;
+  height: 3rem;
+  margin-left: 0.5rem;
+  outline: none;
+  border-radius: 3px;
+  border: 2px solid #dfdcdc;
+  padding-left: 0.5rem;
+  transition: 350ms all;
+}

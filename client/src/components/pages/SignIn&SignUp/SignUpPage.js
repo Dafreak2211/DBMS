@@ -30,7 +30,7 @@ export const SignUpPage = props => {
       <AccountContext.Consumer>
         {context => (
           <form className="account-form" onSubmit={e => onSubmit(e, context)}>
-            <h3 className="account-form__header">Sign In</h3>
+            <h3 className="account-form__header">Sign Up</h3>
             {formError && <div className="form__error signup">{formError}</div>}
             <div className="list-group">
               <input

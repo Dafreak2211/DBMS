@@ -323,7 +323,7 @@ module.exports = {
   addLog: (req, res) => {
     const { type, event, username, timestamp, logId } = req.body;
 
-    let sql = `insert into log values ("${logId}","${timestamp}","${event}", "${type}", "${username}")`;
+    let sql = `call addLog('${logId}','${timestamp}','${event}','${type}','${username}')`;
     console.log(chalk.blue(sql));
     connection.query(sql, (error, results, fields) => {
       if (error) {
@@ -373,10 +373,13 @@ module.exports = {
     const { key } = req.body;
 
     let parsed = parseInt(key);
-
+    let flag = false;
     function filterCases() {
       let statement;
-      if (!isNaN(parsed)) {
+      if (key === "food" || key === "snack" || key === "beverage") {
+        statement = `call getProductsByGroupName("${key}");`;
+        flag = true;
+      } else if (!isNaN(parsed)) {
         statement = `select * from product where product_name like '%${key}%' or product_id like '%${key}%' or groupProduct_id like '%${key}%' or remaining_quantity = ${parseInt(
           key
         )};`;
@@ -398,9 +401,11 @@ module.exports = {
         });
       }
 
+      let result = flag ? results[0] : results;
+
       res.send({
         status: "success",
-        result: results
+        result
       });
     });
   },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Navigation.css";
 import { Link } from "react-router-dom";
+import { saveLog } from "../../../ultis/Log";
 
 export const Navigation = ({ history }) => {
   const [logout, setLogout] = useState(false);
@@ -49,7 +50,7 @@ export const Navigation = ({ history }) => {
   function handleLogout(e) {
     e.preventDefault();
     // Since we didn't use any session in server. Just go ahead and clear all sessionstorage
-
+    saveLog("account", "logout", sessionStorage.getItem("username"));
     sessionStorage.clear();
     history.push("/");
   }

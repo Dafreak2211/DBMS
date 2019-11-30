@@ -10,6 +10,7 @@ import { AdminProducts } from "./AdminProducts";
 import { AdminTabs } from "./AdminTabs";
 import { AdminLog } from "./AdminLog";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { Notify } from "../../layout/notify/Notify";
 
 export const AdminPage = ({ history }) => {
   const [store, setStore] = useState(null);
@@ -20,6 +21,9 @@ export const AdminPage = ({ history }) => {
   const [deletePopupAppear, setDeletePopupAppear] = useState(false); // open edit, update popup
 
   const [tab, setTab] = useState(true); // true means general, false mean history
+
+  let [toggleNotify, setToggleNotify] = useState(false);
+  let [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +57,16 @@ export const AdminPage = ({ history }) => {
         modal={modal}
         setModal={setModal}
         setTriggerRerender={setTriggerRerender}
+        setMessage={setMessage}
+        setToggleNotify={setToggleNotify}
       />
-
+      <Notify
+        message={message}
+        status="success"
+        position="bottom-right"
+        toggleNotify={toggleNotify}
+        setToggleNotify={setToggleNotify}
+      />
       <CSSTransition
         in={popupAppear}
         timeout={350}
@@ -67,6 +79,8 @@ export const AdminPage = ({ history }) => {
           setTriggerRerender={setTriggerRerender}
           setpopupAppear={setpopupAppear}
           popupAppear={popupAppear}
+          setMessage={setMessage}
+          setToggleNotify={setToggleNotify}
         />
       </CSSTransition>
 
@@ -82,6 +96,8 @@ export const AdminPage = ({ history }) => {
           setTriggerRerender={setTriggerRerender}
           setDeletePopupAppear={setDeletePopupAppear}
           deletePopupAppear={deletePopupAppear}
+          setMessage={setMessage}
+          setToggleNotify={setToggleNotify}
         />
       </CSSTransition>
 

@@ -4,7 +4,7 @@ import { CheckOut } from "../checkout/Checkout";
 import "./StoreContent.css";
 import axios from "axios";
 import { CSSTransition } from "react-transition-group";
-export const StoreContent = () => {
+export const StoreContent = ({ toggleNotify, setToggleNotify }) => {
   const [store, setStore] = useState(null);
   const [rerender, triggerRerender] = useState(null);
   const [productByCategory, setProductByCategory] = useState(null);
@@ -49,6 +49,8 @@ export const StoreContent = () => {
               <CheckOut
                 store={store}
                 setStore={setStore}
+                toggleNotify={toggleNotify}
+                setToggleNotify={setToggleNotify}
                 triggerRerender={triggerRerender}
               />
             </CSSTransition>

@@ -6,7 +6,14 @@ import { AccountContext } from "../../../App";
 import shortid from "shortid";
 
 export const Modal = props => {
-  const { modal, setModal, setTriggerRerender } = props;
+  const {
+    modal,
+    setModal,
+    setTriggerRerender,
+    setMessage,
+    setToggleNotify,
+    toggleNotify
+  } = props;
 
   const [image, setImage] = useState(null);
   const [rerender, setRerender] = useState(null);
@@ -107,6 +114,11 @@ export const Modal = props => {
       );
       setRerender(Math.random());
       setTriggerRerender(Math.random());
+      setMessage("Add new product successfully");
+      setToggleNotify(true);
+
+      setTimeout(() => setToggleNotify(false), 1000);
+
       setModal(!modal);
     } else {
       alert(respond.data.error.sqlMessage);
